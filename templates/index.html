@@ -1,0 +1,483 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WorkGuard AI - Demonstração</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f1115;
+            color: white;
+            min-height: 100vh;
+        }
+
+        header {
+            border-bottom: 1px solid #292d35;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+        }
+
+        .badge {
+            background: #17251d;
+            color: #35d07f;
+            border: 1px solid #245c3b;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .hero h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #9da3ae;
+            font-size: 17px;
+        }
+
+        .camera-card {
+            background: #181b21;
+            border: 1px solid #292d35;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .camera-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .camera-header h3 {
+            font-size: 18px;
+        }
+
+        .camera-status {
+            color: #9da3ae;
+            font-size: 14px;
+        }
+
+        .camera-area {
+            position: relative;
+            width: 100%;
+            background: #050505;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .risk-area {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 30%;
+            height: 100%;
+            border-left: 3px solid red;
+            background: rgba(255, 0, 0, 0.08);
+            pointer-events: none;
+        }
+
+        .risk-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(180, 0, 0, 0.8);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 13px 22px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #startButton {
+            background: #198754;
+            color: white;
+        }
+
+        #stopButton {
+            background: #343a40;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #111318;
+            border: 1px solid #292d35;
+            text-align: center;
+            color: #35d07f;
+        }
+
+        .info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .info-card {
+            background: #181b21;
+            border: 1px solid #292d35;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-card span {
+            font-size: 25px;
+        }
+
+        .info-card h4 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .info-card p {
+            color: #9da3ae;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #707681;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                padding: 18px;
+            }
+
+            main {
+                width: 95%;
+                margin: 25px auto;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .info {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            <div class="logo-icon">🤖</div>
+
+            <h1>WorkGuard AI</h1>
+        </div>
+
+        <div class="badge">
+            ● DEMO
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <section class="hero">
+
+            <h2>Monitoramento inteligente</h2>
+
+            <p>
+                Demonstração do sistema de segurança
+                utilizando Inteligência Artificial.
+            </p>
+
+        </section>
+
+
+        <section class="camera-card">
+
+            <div class="camera-header">
+
+                <h3>📷 Monitoramento da câmera</h3>
+
+                <div class="camera-status" id="cameraStatus">
+                    Câmera desligada
+                </div>
+
+            </div>
+
+
+            <div class="camera-area">
+
+                <video
+                    id="camera"
+                    autoplay
+                    playsinline>
+                </video>
+
+
+                <div class="risk-area"></div>
+
+                <div class="risk-label">
+                    ÁREA DE RISCO
+                </div>
+
+            </div>
+
+
+            <div class="controls">
+
+                <button
+                    id="startButton"
+                    onclick="iniciarCamera()">
+
+                    📷 Iniciar demonstração
+
+                </button>
+
+
+                <button
+                    id="stopButton"
+                    onclick="pararCamera()">
+
+                    ⛔ Parar câmera
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="status"
+                id="systemStatus">
+
+                🟡 Sistema aguardando câmera...
+
+            </div>
+
+        </section>
+
+
+        <section class="info">
+
+            <div class="info-card">
+
+                <span>🧠</span>
+
+                <h4>Inteligência Artificial</h4>
+
+                <p>
+                    O sistema utiliza YOLO para
+                    detectar pessoas através da câmera.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>🔴</span>
+
+                <h4>Área de risco</h4>
+
+                <p>
+                    Uma região da câmera é definida
+                    como área de risco para demonstração.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <span>🔒</span>
+
+                <h4>Modo demonstração</h4>
+
+                <p>
+                    Nenhum cadastro é necessário
+                    para testar esta demonstração.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        WorkGuard AI • Projeto de Inteligência Artificial
+        e Visão Computacional
+
+    </footer>
+
+
+    <script>
+
+        let stream = null;
+
+
+        async function iniciarCamera() {
+
+            try {
+
+                stream =
+                    await navigator.mediaDevices.getUserMedia({
+                        video: true,
+                        audio: false
+                    });
+
+
+                const video =
+                    document.getElementById("camera");
+
+                video.srcObject = stream;
+
+
+                document.getElementById(
+                    "cameraStatus"
+                ).innerText = "🟢 Câmera ativa";
+
+
+                document.getElementById(
+                    "systemStatus"
+                ).innerText =
+                    "🟢 Sistema funcionando — demonstração ativa";
+
+
+            } catch (erro) {
+
+                console.error(erro);
+
+
+                document.getElementById(
+                    "cameraStatus"
+                ).innerText =
+                    "🔴 Câmera indisponível";
+
+
+                document.getElementById(
+                    "systemStatus"
+                ).innerText =
+                    "❌ Não foi possível acessar a câmera.";
+
+            }
+
+        }
+
+
+        function pararCamera() {
+
+            if (stream) {
+
+                stream.getTracks().forEach(
+                    track => track.stop()
+                );
+
+                stream = null;
+
+            }
+
+
+            document.getElementById(
+                "camera"
+            ).srcObject = null;
+
+
+            document.getElementById(
+                "cameraStatus"
+            ).innerText =
+                "Câmera desligada";
+
+
+            document.getElementById(
+                "systemStatus"
+            ).innerText =
+                "🟡 Sistema aguardando câmera...";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+```
