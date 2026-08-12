@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 workguard.db
 salvos/
+converter.py
